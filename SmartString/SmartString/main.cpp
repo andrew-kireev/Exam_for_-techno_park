@@ -9,23 +9,23 @@
 #include <iostream>
 #include <vector>
 #include <string_view>
+#include <utility>
 
 
 class SmartStr {
 public:
     SmartStr() = default;
-    SmartStr (const std::string& s) {
+    SmartStr(const std::string& s){
         std::string new_s = s;
         std::string_view str = s;
         
         while(true) {
             size_t tab = str.find_first_of('\t');
             storage_s.push_back(str.substr(0, tab));
-            if (tab == str.npos) {
+            if (tab == str.npos){
                 break;
                 
-            }
-            else {
+            } else {
                 str.remove_prefix(tab + 1);
                 
             }
@@ -35,10 +35,10 @@ public:
     void Edit(const std::string& s, const size_t& ind_el) {      //Редактирует поле по индексу
         storage_s[ind_el] = move(s);
     }
-    void Delete(const size_t ind_el) {          //Удаляет поле по индексу
+    void Delete(const size_t& ind_el) {          //Удаляет поле по индексу
         storage_s.erase(storage_s.begin() + ind_el);
     }
-    void Add(const std::string s, const size_t ind_el) {         //Добавляет элемент на место ind_el
+    void Add(const std::string& s, const size_t& ind_el) {         //Добавляет элемент на место ind_el
         storage_s.insert(storage_s.begin() + ind_el, move(s));
     }
     friend std::ostream& operator<<(std::ostream& out, const SmartStr& sm_string) {     //Перегрузка стандартного вывода
